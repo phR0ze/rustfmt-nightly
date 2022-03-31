@@ -2,7 +2,7 @@ rustfmt-nightly
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ====================================================================================================
 
-***Scripted build and install of rustfmt using the Rust nightly container***
+***Scripted build and install of latest rustfmt using the Rust nightly container***
 
 ### Quick links
 * [Usage](#usage)

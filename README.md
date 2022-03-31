@@ -16,12 +16,14 @@ rustfmt-nightly
 # Usage
 
 ## Dependencies
-You'll need the following nix dependencies installed and configured
+The [script](scripted-install) requires the following nix dependencies installed and configured
 
-* git
-* jq
-* curl
-* docker - assumes your user is configured to run docker
+* `bash`
+* `curl`
+* `docker` - assumes your user is configured to run docker
+* `git`
+* `jq`
+* `sudo` - configured for your user
 
 ## Scripted install
 

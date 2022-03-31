@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Check for required dependencies
+for x in curl jq git docker; do
+  if [ ! command -v $x &> /dev/null ]; then
+    echo "${x} dependency could not be found" && exit
+  fi
+done
+
+# Determine the latest rustfmt tag
+LATEST=$(curl -s "https://api.github.com/repos/rust-lang/rustfmt/releases/latest" | jq -r '.tag_name')
+echo "Latest Release: ${LATEST}"
+
+# Clone the tag locally
+echo "Cloning project..."
+git clone -b $LATEST --single-branch https://github.com/rust-lang/rustfmt
+
+# Build the project using Rust nightly container
+echo "Building project with rust nightly..."
+docker run --rm -it -v "$(pwd)/rustfmt":/usr/src -w=/usr/src rustlang/rust:nightly cargo build --release
+
+# Install to your local Rust cargo bin dir
+echo "Installing built components to ~/.cargo/bin..."
+if [ -f /usr/bin/rustfmt ]; then
+  sudo cp rustfmt/target/release/rustfmt /usr/bin
+fi
+cp rustfmt/target/release/rustfmt ~/.cargo/bin
+cp rustfmt/target/release/cargo-fmt ~/.cargo/bin
